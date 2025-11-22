@@ -382,7 +382,7 @@ GO
 
 SELECT  DISTINCT [InventoryDate]  -- Tidy up the results to make them clear
     ,([EmployeeFirstName] + ' ' + [EmployeeLastName]) AS 'EmployeeName'
-	FROM Inventories AS i JOIN Employees AS e
+	FROM vInventories AS i JOIN vEmployees AS e
 	ON i.EmployeeID = e.EmployeeID
     ORDER BY [InventoryDate] ASC;
 GO
@@ -391,7 +391,7 @@ CREATE VIEW vInventoriesByEmployeesByDates -- Rename view to match final Select 
 	AS 
 	SELECT  DISTINCT [InventoryDate]  
     ,([EmployeeFirstName] + ' ' + [EmployeeLastName]) AS 'EmployeeName'
-	FROM Inventories AS i JOIN Employees AS e
+	FROM vInventories AS i JOIN vEmployees AS e
 	ON i.EmployeeID = e.EmployeeID;
 GO
 */
@@ -427,9 +427,9 @@ SELECT [CategoryName] -- Order the results
     , [ProductName]
     , [InventoryDate]
     , [Count]
-	FROM Categories AS c JOIN Products AS p
+	FROM vCategories AS c JOIN vProducts AS p
 	ON c.CategoryID = p.CategoryID
-    JOIN Inventories AS i
+    JOIN vInventories AS i
 	ON p.ProductID = i.ProductID
     ORDER BY [CategoryName] ASC, [ProductName] ASC, [InventoryDate] ASC, [Count] DESC;
 GO
@@ -440,9 +440,9 @@ CREATE VIEW vInventoriesByProductsByCategories  -- Rename view to match final Se
     , [ProductName]
     , [InventoryDate]
     , [Count]
-	FROM Categories AS c JOIN Products AS p
+	FROM vCategories AS c JOIN vProducts AS p
 	ON c.CategoryID = p.CategoryID
-    JOIN Inventories AS i
+    JOIN vInventories AS i
 	ON p.ProductID = i.ProductID;
 GO
 */
@@ -592,6 +592,7 @@ GO
 SELECT * FROM [dbo].[vInventoriesForChaiAndChangByEmployees]
 	ORDER BY [InventoryDate] ASC, [CategoryName] ASC, [ProductName] ASC;
 GO
+
 
 -- Question 9 (10% pts): How can you create a view to show a list of Employees and the Manager who manages them?
 -- Order the results by the Manager's name!
